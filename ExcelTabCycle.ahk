@@ -2,8 +2,16 @@
 #IfWinActive, ahk_class XLMAIN
 #SingleInstance Force
 
-global xl := ComObjActive("Excel.Application")   ; ID active Excel Application
-ComObjConnect(xl, "xl_")	; connect Excel events to corresponding script functions with the prefix "xl_".
+global xl
+while True {
+	try {
+		xl := ComObjActive("Excel.Application")   ; ID active Excel Application
+		ComObjConnect(xl, "xl_")	; connect Excel events to corresponding script functions with the prefix "xl_".
+		Break
+	} catch {
+		Sleep, 10000
+	}
+}
 
 
 global cellIndexOffset := 0
